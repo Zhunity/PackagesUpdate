@@ -11,7 +11,7 @@ public class Property : Member
 	public Property(Type belongType, string name)
 	{
 		propertyInfo = belongType.GetProperty(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-		ReflectedType = propertyInfo.ReflectedType;
+		type = propertyInfo.PropertyType;
 		ShowMembers();
 	}
 

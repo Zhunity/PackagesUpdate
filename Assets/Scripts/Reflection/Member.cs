@@ -13,7 +13,7 @@ public class Member
 {
 	public string name;
 	public MemberInfo memberInfo;
-	public Type ReflectedType;
+	public Type type;	// 这个成员的类型
 
 	public Object belong;
 
@@ -30,7 +30,9 @@ public class Member
 			Debug.LogError("can not find " + name + " in " + belongType);
 			return;
 		}
-		ReflectedType = memberInfo.ReflectedType;
+		// 这么取是不对的。。。
+		// TODO memberInfo怎么取到
+		type = memberInfo.ReflectedType;
 		ShowMembers();
 	}
 
@@ -39,9 +41,15 @@ public class Member
 		this.belong = belong;
 	}
 
+	/// <summary>
+	/// Name:变量名
+	/// ReflectedType：当前变量所在的变量
+	/// MemberType：Property, Field等类型
+	/// DeclaringType：定义这个变量的类型位置
+	/// </summary>
 	protected void ShowMembers()
 	{
-		var list = ReflectedType.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+		var list = type.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
 		foreach (var item in list)
 		{
 			Debug.Log("Name:\t\t" + item.Name + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nDeclaringType:\t" + item.DeclaringType);
