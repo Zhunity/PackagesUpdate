@@ -7,8 +7,12 @@ using Object = UnityEngine.Object;
 
 public class PackageDetails : Property
 {
+	IPackageVersion displayVersion;
+	IPackageVersion targetVersion;
+
 	public PackageDetails(Type belongType, string name) : base(belongType, name)
 	{
+		displayVersion = new IPackageVersion(type, "displayVersion");
 	}
 
 	public void SetWindow(Object window)

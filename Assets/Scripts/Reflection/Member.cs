@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using Object = System.Object;
 
 /// <summary>
 /// 一个对象里面的成员
+/// 如果一种类型既有在Property成员，也有Field类型，建议使用Member
+/// TODO 适配上面这种情况
 /// </summary>
 public class Member
 {
@@ -30,15 +32,34 @@ public class Member
 			Debug.LogError("can not find " + name + " in " + belongType);
 			return;
 		}
+		this.name = name;
+
 		// 这么取是不对的。。。
 		// TODO memberInfo怎么取到
 		type = memberInfo.ReflectedType;
-		ShowMembers();
 	}
 
 	public void SetBelong(Object belong)
 	{
 		this.belong = belong;
+		OnSetBelong();
+	}
+
+	public void SetBelong(Member belong)
+	{
+		var obj = belong.GetValue();
+		this.belong = obj;
+		OnSetBelong();
+	}
+
+	public virtual Object GetValue()
+	{
+		return null;
+	}
+
+	protected virtual void OnSetBelong()
+	{
+
 	}
 
 	/// <summary>

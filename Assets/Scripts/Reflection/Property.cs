@@ -11,13 +11,21 @@ public class Property : Member
 	public Property(Type belongType, string name)
 	{
 		propertyInfo = belongType.GetProperty(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+		this.name = name;
 		type = propertyInfo.PropertyType;
-		ShowMembers();
+	}
+
+	public override object GetValue()
+	{
+		if(belong == null)
+		{
+			Debug.LogError("can not find " + name);
+		}
+		return propertyInfo.GetValue(belong);
 	}
 
 	public void ShowValue()
 	{
-		var target = propertyInfo.GetValue(belong);
-		Debug.Log(target.GetType());
+		Debug.Log(name + " : " + GetValue());
 	}
 }
