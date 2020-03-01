@@ -8,11 +8,12 @@ public class Property : Member
 {
 	PropertyInfo propertyInfo;
 
-	public Property(Type belongType, string name)
+	public Property(Member belongMember, string name) : base(belongMember, name)
 	{
-		propertyInfo = belongType.GetProperty(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-		this.name = name;
-		type = propertyInfo.PropertyType;
+	}
+
+	public Property(Type belongType, string name) : base(belongType, name)
+	{		
 	}
 
 	public override object GetValue()
@@ -27,5 +28,15 @@ public class Property : Member
 	public void ShowValue()
 	{
 		Debug.Log(name + " : " + GetValue());
+	}
+
+	protected override void SetInfo(Type belongType, string name)
+	{
+		propertyInfo = belongType.GetProperty(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+	}
+
+	protected override void SetType()
+	{
+		type = propertyInfo.PropertyType;
 	}
 }

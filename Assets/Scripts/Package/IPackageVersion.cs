@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class IPackageVersion : Property
 {
-	public IPackageVersion(Type belongType, string name) : base(belongType, name)
+	public IPackageVersion(Member belongMember, string name) : base(belongMember, name)
 	{
-		//ShowMembers();
 	}
 }

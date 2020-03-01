@@ -10,56 +10,113 @@ using Object = System.Object;
 /// 一个对象里面的成员
 /// 如果一种类型既有在Property成员，也有Field类型，建议使用Member
 /// TODO 适配上面这种情况
+/// NOTODO 逐层递增，用到的时候自己解析？ 用起来看起来很方便，但是感觉可能调试不好搞，还是不要这么搞了
 /// </summary>
 public class Member
 {
 	public string name;
 	public MemberInfo memberInfo;
-	public Type type;	// 这个成员的类型
+	public Type type;   // 这个成员的类型
 
+	public Type belongType;
 	public Object belong;
+	public Action<Member> onSetBelong;
 
-	public Member()
-	{
+	private List<Member> memberList = new List<Member>();
 
-	}
-
+	#region 初始化类型数据
+	// 这个是根节点用的 
 	public Member(Type belongType, string name)
 	{
+		SetInfo(belongType, name);
+		SetBelongType(belongType);
+		SetName(name);
+		SetType();
+		Debug.Log("belongType " + name);
+	}
+
+	// 这个是递归引用时用的
+	public Member(Member belongMember, string name) : this(belongMember.type, name)
+	{
+		SetBelongCallback(belongMember);
+		Debug.Log("belongMember " + name);
+	}
+
+	/// <summary>
+	/// 设置变量成员信息
+	/// </summary>
+	/// <param name="belongType"></param>
+	/// <param name="name"></param>
+	/// <returns></returns>
+	protected virtual void SetInfo(Type belongType, string name)
+	{
 		memberInfo = belongType.GetMember(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static).First();
-		if(memberInfo == null)
+	}
+
+	/// <summary>
+	/// 设置变量名
+	/// 操作简单，目测不用重写
+	/// </summary>
+	/// <param name="name"></param>
+	protected void SetName(string name)
+	{
+		this.name = name;
+	}
+	
+	/// <summary>
+	/// 设置所属对象类型
+	/// </summary>
+	/// <param name="belongType"></param>
+	protected void SetBelongType(Type belongType)
+	{
+		this.belongType = belongType;
+	}
+
+	/// <summary>
+	/// Member这么取是不对的。。。
+	/// TODO memberInfo怎么取到
+	/// </summary>
+	protected virtual void SetType()
+	{
+		if (memberInfo == null)
 		{
 			Debug.LogError("can not find " + name + " in " + belongType);
-			return;
 		}
-		this.name = name;
-
-		// 这么取是不对的。。。
-		// TODO memberInfo怎么取到
 		type = memberInfo.ReflectedType;
 	}
 
+	protected void SetBelongCallback(Member belongMember)
+	{
+		belongMember.memberList.Add(this);
+	}
+	#endregion
+
+#region 设置实际对象
 	public void SetBelong(Object belong)
 	{
 		this.belong = belong;
-		OnSetBelong();
+
+		if(memberList == null || memberList.Count <= 0)
+		{
+			return;
+		}
+
+		foreach(var member in memberList)
+		{
+			member.SetBelong(this);
+		}
 	}
 
 	public void SetBelong(Member belong)
 	{
 		var obj = belong.GetValue();
-		this.belong = obj;
-		OnSetBelong();
+		SetBelong(obj);
 	}
+	#endregion
 
 	public virtual Object GetValue()
 	{
 		return null;
-	}
-
-	protected virtual void OnSetBelong()
-	{
-
 	}
 
 	/// <summary>

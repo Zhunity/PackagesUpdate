@@ -12,11 +12,14 @@ public class PackageDetails : Property
 
 	public PackageDetails(Type belongType, string name) : base(belongType, name)
 	{
-		displayVersion = new IPackageVersion(type, "displayVersion");
+		displayVersion = new IPackageVersion(this, "displayVersion");
+		//displayVersion.SetBelong(GetValue());
+		
 	}
 
 	public void SetWindow(Object window)
 	{
 		SetBelong(window);
+		displayVersion.ShowValue();
 	}
 }

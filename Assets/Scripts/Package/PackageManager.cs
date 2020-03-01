@@ -39,7 +39,7 @@ public class PackageManager : MonoBehaviour
 		if (window != null)
 		{
 			packageDetails.SetWindow(window);
-			packageDetails.ShowValue();
+			//packageDetails.ShowValue();
 		}
 	}
 
