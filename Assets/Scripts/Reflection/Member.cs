@@ -11,12 +11,16 @@ using Object = UnityEngine.Object;
 /// </summary>
 public class Member
 {
-	string name;
-	MemberInfo memberInfo;
-	Type ReflectedType;
+	public string name;
+	public MemberInfo memberInfo;
+	public Type ReflectedType;
 
-	Object belong;
+	public Object belong;
 
+	public Member()
+	{
+
+	}
 
 	public Member(Type belongType, string name)
 	{
@@ -35,7 +39,7 @@ public class Member
 		this.belong = belong;
 	}
 
-	private void ShowMembers()
+	protected void ShowMembers()
 	{
 		var list = ReflectedType.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
 		foreach (var item in list)
