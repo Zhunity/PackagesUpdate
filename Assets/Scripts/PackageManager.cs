@@ -5,13 +5,16 @@ using UnityEditor.PackageManager;
 using System;
 using System.Reflection;
 using UnityEditor;
+using Object = UnityEngine.Object;
+using System.Linq;
 
 [ExecuteInEditMode]
 public class PackageManager : MonoBehaviour
 {
-	Type window = GetType("PackageManagerWindow");
+	string packageManagerWidowName = "PackageManagerWindow";
+	Type windowType;
 
-	
+	PackageDetails packageDetails;
 
 	void Awake()
     {
@@ -20,14 +23,9 @@ public class PackageManager : MonoBehaviour
 			return;
 		}
 		Debug.Log("EditorAwake");
-		var list = window.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-		foreach(var item in list)
-		//if(item!= null)
-		{
-			Debug.Log(item.Name + "  " + item.MemberType + "  " + item.DeclaringType);
-		}
-
-		//EditorApplication.update += EditorUpdate;
+		windowType = GetType(packageManagerWidowName);
+		packageDetails = new PackageDetails(windowType);
+		EditorApplication.update += EditorUpdate;
 	}
 
 	private void EditorUpdate()
@@ -36,13 +34,11 @@ public class PackageManager : MonoBehaviour
 		{
 			return;
 		}
-		var windows = Resources.FindObjectsOfTypeAll(window);
-		if (windows != null && windows.Length > 0)
+		var window = Resources.FindObjectsOfTypeAll(windowType).FirstOrDefault();
+		if (window != null)
 		{
-			foreach (var item in windows)
-			{
-				
-			}
+			packageDetails.SetWindow(window);
+			packageDetails.ShowValue();
 		}
 	}
 
