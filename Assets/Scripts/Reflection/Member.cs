@@ -20,9 +20,16 @@ public class Member
 
 	public Type belongType;
 	public Object belong;
-	public Action<Member> onSetBelong;
 
 	private List<Member> memberList = new List<Member>();
+
+	public Object Value
+	{
+		get
+		{
+			return GetValue();
+		}
+	}
 
 	#region 初始化类型数据
 	// 这个是根节点用的 
@@ -91,26 +98,35 @@ public class Member
 	}
 	#endregion
 
-#region 设置实际对象
+	#region 设置持有该成员的对象
+	/// <summary>
+	/// 设置持有该成员的对象
+	/// </summary>
+	/// <param name="belong"></param>
 	public void SetBelong(Object belong)
 	{
 		this.belong = belong;
 
-		if(memberList == null || memberList.Count <= 0)
+		if (memberList != null && memberList.Count > 0)
 		{
-			return;
+			foreach (var member in memberList)
+			{
+				member.SetBelong(this);
+			}
 		}
 
-		foreach(var member in memberList)
-		{
-			member.SetBelong(this);
-		}
+		OnSetBelong();
 	}
 
 	public void SetBelong(Member belong)
 	{
 		var obj = belong.GetValue();
 		SetBelong(obj);
+	}
+
+	protected virtual void OnSetBelong()
+	{
+
 	}
 	#endregion
 
@@ -132,5 +148,38 @@ public class Member
 		{
 			Debug.Log("Name:\t\t" + item.Name + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nDeclaringType:\t" + item.DeclaringType);
 		}
+	}
+
+	/// <summary>
+	/// 显示内部成员的值
+	/// </summary>
+	protected void ShowMembersValue()
+	{
+		Object instance = GetValue();
+		if(instance == null)
+		{
+			return;
+		}
+
+		Debug.Log("");
+		Debug.Log("----------------------------" + name + " begin--------------------------------");
+		var list = type.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+		foreach (var item in list)
+		{
+			if(item.MemberType == MemberTypes.Property)
+			{
+				PropertyInfo info = item as PropertyInfo;
+				object value = info.GetValue(instance);
+				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t" + value +  "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nDeclaringType:\t" + item.DeclaringType);
+			}
+			else if(item.MemberType == MemberTypes.Field)
+			{
+				FieldInfo info = item as FieldInfo;
+				object value = info.GetValue(instance);
+				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t" + value + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nDeclaringType:\t" + item.DeclaringType);
+			}
+		}
+		Debug.Log("----------------------------" + name + " end--------------------------------");
+		Debug.Log("");
 	}
 }

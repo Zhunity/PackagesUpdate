@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using Object = System.Object;
 
 public class Property : Member
 {
@@ -21,6 +22,7 @@ public class Property : Member
 		if(belong == null)
 		{
 			Debug.LogError("can not find " + name);
+			return null;
 		}
 		return propertyInfo.GetValue(belong);
 	}

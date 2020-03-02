@@ -20,6 +20,5 @@ public class PackageDetails : Property
 	public void SetWindow(Object window)
 	{
 		SetBelong(window);
-		displayVersion.ShowValue();
 	}
 }
