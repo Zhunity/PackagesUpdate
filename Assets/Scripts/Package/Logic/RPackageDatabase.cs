@@ -12,16 +12,31 @@ public class RPackageDatabase : Class
 
 	public RPackageDatabase(Type type) : base(type)
 	{
-		ShowMembers();
 		s_instance = new Property(this, "instance");
-		SetInstance(s_instance.GetValue());
 
-		
-		Debug.Log(s_instance.GetValue().GetType());
+		var value = s_instance.GetValue();
+		SetInstance(value);
+
+
+		instanceInternal = new PackageDatabaseInternal(value.GetType());
+		instanceInternal.SetInstance(value);
 	}
 
 	public class PackageDatabaseInternal : Class
 	{
+		Property allPackages;
 
+		public PackageDatabaseInternal(Type type) : base(type)
+		{
+			allPackages = new Property(this, "allPackages");
+		}
+
+		protected override void OnSetInstance()
+		{
+			//ShowMembersValue();
+			var value = allPackages.Value as ICollection;
+			Debug.Log(value.Count);
+
+		}
 	}
 }

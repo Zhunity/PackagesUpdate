@@ -52,6 +52,13 @@ public class Class
 				member.SetBelong(instance);
 			}
 		}
+
+		OnSetInstance();
+	}
+
+	protected virtual void OnSetInstance()
+	{
+
 	}
 
 	/// <summary>
