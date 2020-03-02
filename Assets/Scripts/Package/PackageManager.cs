@@ -12,10 +12,9 @@ using System.Linq;
 public class PackageManager : MonoBehaviour
 {
 	string packageManagerWidowName = "PackageManagerWindow";
-	const string packageDetailsName = "packageDetails";
 	Type windowType;
-
-	PackageDetails packageDetails;
+	PackageWindow packageWindow;
+	
 
 	void Awake()
     {
@@ -25,7 +24,9 @@ public class PackageManager : MonoBehaviour
 		}
 		Debug.Log("EditorAwake");
 		windowType = GetType(packageManagerWidowName);
-		packageDetails = new PackageDetails(windowType, packageDetailsName);
+		packageWindow = new PackageWindow(windowType);
+
+
 		EditorApplication.update += EditorUpdate;
 	}
 
@@ -38,7 +39,7 @@ public class PackageManager : MonoBehaviour
 		var window = Resources.FindObjectsOfTypeAll(windowType).FirstOrDefault();
 		if (window != null)
 		{
-			packageDetails.SetWindow(window);
+			packageWindow.SetInstance(window);
 		}
 	}
 

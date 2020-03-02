@@ -10,13 +10,8 @@ public class PackageDetails : Property
 	IPackageVersion displayVersion;
 	IPackageVersion targetVersion;
 
-	public PackageDetails(Type belongType, string name) : base(belongType, name)
+	public PackageDetails(Member belongMember, string name) : base(belongMember, name)
 	{
 		displayVersion = new IPackageVersion(this, "displayVersion");
-	}
-
-	public void SetWindow(Object window)
-	{
-		SetBelong(window);
 	}
 }

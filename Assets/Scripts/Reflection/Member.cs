@@ -12,16 +12,15 @@ using Object = System.Object;
 /// TODO 适配上面这种情况
 /// NOTODO 逐层递增，用到的时候自己解析？ 用起来看起来很方便，但是感觉可能调试不好搞，还是不要这么搞了
 /// </summary>
-public class Member
+public class Member : Class
 {
 	public string name;
 	public MemberInfo memberInfo;
-	public Type type;   // 这个成员的类型
 
 	public Type belongType;
 	public Object belong;
 
-	private List<Member> memberList = new List<Member>();
+	
 
 	public Object Value
 	{
@@ -32,14 +31,10 @@ public class Member
 	}
 
 	#region 初始化类型数据
-	// 这个是根节点用的 
-	public Member(Type belongType, string name)
+	// 这个是定义类型用的
+	public Member(Type type)
 	{
-		SetInfo(belongType, name);
-		SetBelongType(belongType);
-		SetName(name);
-		SetType();
-		Debug.Log("belongType " + name);
+		this.type = type;
 	}
 
 	// 这个是递归引用时用的
@@ -47,6 +42,16 @@ public class Member
 	{
 		Debug.Log(belongMember + " " + name);
 		SetBelongCallback(belongMember);
+	}
+
+	// 这个是根节点用的
+	// 只用一个类型内的某个参数，不需要定义一个类型
+	public Member(Type belongType, string name)
+	{
+		SetInfo(belongType, name);
+		SetBelongType(belongType);
+		SetName(name);
+		SetType();
 	}
 
 	/// <summary>
@@ -107,8 +112,10 @@ public class Member
 	{
 		if(this.belong == belong)
 		{
+			Debug.Log("--------");
 			return;
 		}
+		Debug.LogError("||||||||||||||||||||");
 		this.belong = belong;
 
 		if (memberList != null && memberList.Count > 0)
@@ -133,6 +140,15 @@ public class Member
 
 	}
 	#endregion
+
+	/// <summary>
+	/// 相对于一个类来说，设置该类的持有对象，相当于设置该类的实例对象
+	/// </summary>
+	/// <param name="instance"></param>
+	public void SetInstance(object instance)
+	{
+		SetBelong(instance);
+	}
 
 	public virtual Object GetValue()
 	{
