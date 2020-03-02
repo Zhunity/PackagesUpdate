@@ -14,13 +14,9 @@ using Object = System.Object;
 /// </summary>
 public class Member : Class
 {
-	public string name;
 	public MemberInfo memberInfo;
-
 	public Type belongType;
 	public Object belong;
-
-	
 
 	public Object Value
 	{
@@ -32,16 +28,15 @@ public class Member : Class
 
 	#region 初始化类型数据
 	// 这个是定义类型用的
-	public Member(Type type)
+	public Member(Type type) :base(type)
 	{
-		this.type = type;
 	}
 
 	// 这个是递归引用时用的
-	public Member(Member belongMember, string name) : this(belongMember.type, name)
+	public Member(Class belongMember, string name) : this(belongMember.type, name)
 	{
 		Debug.Log(belongMember + " " + name);
-		SetBelongCallback(belongMember);
+		SetMemberList(belongMember);
 	}
 
 	// 这个是根节点用的
@@ -90,16 +85,8 @@ public class Member : Class
 	/// </summary>
 	protected virtual void SetType()
 	{
-		if (memberInfo == null)
-		{
-			Debug.LogError("can not find " + name + " in " + belongType);
-		}
+		Debug.LogError("can not find type in Member");
 		type = memberInfo.ReflectedType;
-	}
-
-	protected void SetBelongCallback(Member belongMember)
-	{
-		belongMember.memberList.Add(this);
 	}
 	#endregion
 
@@ -112,10 +99,8 @@ public class Member : Class
 	{
 		if(this.belong == belong)
 		{
-			Debug.Log("--------");
 			return;
 		}
-		Debug.LogError("||||||||||||||||||||");
 		this.belong = belong;
 
 		if (memberList != null && memberList.Count > 0)
@@ -142,64 +127,21 @@ public class Member : Class
 	#endregion
 
 	/// <summary>
-	/// 相对于一个类来说，设置该类的持有对象，相当于设置该类的实例对象
+	/// 获取该成员变量的值
 	/// </summary>
-	/// <param name="instance"></param>
-	public void SetInstance(object instance)
+	/// <returns></returns>
+	public override Object GetValue()
 	{
-		SetBelong(instance);
-	}
-
-	public virtual Object GetValue()
-	{
+		if (memberInfo.MemberType == MemberTypes.Property)
+		{
+			PropertyInfo info = memberInfo as PropertyInfo;
+			return info.GetValue(instance);
+		}
+		else if (memberInfo.MemberType == MemberTypes.Field)
+		{
+			FieldInfo info = memberInfo as FieldInfo;
+			return info.GetValue(instance);
+		}
 		return null;
-	}
-
-	/// <summary>
-	/// Name:变量名
-	/// ReflectedType：当前变量所在的变量
-	/// MemberType：Property, Field等类型
-	/// DeclaringType：定义这个变量的类型位置
-	/// </summary>
-	protected void ShowMembers()
-	{
-		var list = type.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-		foreach (var item in list)
-		{
-			Debug.Log("Name:\t\t" + item.Name + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nDeclaringType:\t" + item.DeclaringType);
-		}
-	}
-
-	/// <summary>
-	/// 显示内部成员的值
-	/// </summary>
-	protected void ShowMembersValue()
-	{
-		Object instance = GetValue();
-		if(instance == null)
-		{
-			return;
-		}
-
-		Debug.Log("");
-		Debug.Log("----------------------------" + name + " begin--------------------------------");
-		var list = type.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-		foreach (var item in list)
-		{
-			if(item.MemberType == MemberTypes.Property)
-			{
-				PropertyInfo info = item as PropertyInfo;
-				object value = info.GetValue(instance);
-				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t" + value +  "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nDeclaringType:\t" + item.DeclaringType);
-			}
-			else if(item.MemberType == MemberTypes.Field)
-			{
-				FieldInfo info = item as FieldInfo;
-				object value = info.GetValue(instance);
-				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t" + value + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nDeclaringType:\t" + item.DeclaringType);
-			}
-		}
-		Debug.Log("----------------------------" + name + " end--------------------------------");
-		Debug.Log("");
 	}
 }
