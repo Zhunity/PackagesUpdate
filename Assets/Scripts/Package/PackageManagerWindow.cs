@@ -12,7 +12,7 @@ public class PackageWindow : Member
 	PackageDetails packageDetails;
 	PackageList packageList;
 
-	public PackageWindow(Type belongType) : base(belongType)
+	public PackageWindow(Type type) : base(type)
 	{
 		packageDetails = new PackageDetails(this, packageDetailsName);
 		packageList = new PackageList(this, "packageList");
