@@ -25,14 +25,17 @@ public class PackageList : Member
 		r_PackageItemsLookup.Clear();
 		IDictionary dict = m_PackageItemsLookup.Value as IDictionary;
 		var iter = dict.GetEnumerator();
-		Debug.Log(dict.Count);
 		while(iter.MoveNext())
 		{
-			Debug.Log(iter.Key + "  " + iter.Value);
 			RPackageItem item = new RPackageItem(packageItemType);
 			item.SetInstance(iter.Value);
 			r_PackageItemsLookup.Add(iter.Key.ToString(), item);
 		}
-		Debug.Log(r_PackageItemsLookup.Count);
+		
+
+		foreach(var item in r_PackageItemsLookup)
+		{
+			Debug.Log(item.Key + "  " + item.Value.GetValue());
+		}
 	}
 }

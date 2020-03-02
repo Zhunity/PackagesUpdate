@@ -27,6 +27,9 @@ public class PackageManager : MonoBehaviour
 		packageWindow = new PackageWindow(windowType);
 
 
+		Type t = Utils.GetType("PackageDatabase");
+		RPackageDatabase database = new RPackageDatabase(t);
+
 		EditorApplication.update += EditorUpdate;
 	}
 

@@ -9,7 +9,7 @@ public class Property : Member
 {
 	PropertyInfo propertyInfo;
 
-	public Property(Member belongMember, string name) : base(belongMember, name)
+	public Property(Class belongMember, string name) : base(belongMember, name)
 	{
 	}
 
@@ -19,11 +19,12 @@ public class Property : Member
 
 	public override object GetValue()
 	{
-		if(belong == null)
-		{
-			Debug.LogError("can not find " + name);
-			return null;
-		}
+		// TODO static可以不用判断
+		//if (belong == null)
+		//{
+		//	Debug.LogError("can not find " + name);
+		//	return null;
+		//}
 		return propertyInfo.GetValue(belong);
 	}
 
