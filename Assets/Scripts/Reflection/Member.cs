@@ -45,8 +45,8 @@ public class Member
 	// 这个是递归引用时用的
 	public Member(Member belongMember, string name) : this(belongMember.type, name)
 	{
+		Debug.Log(belongMember + " " + name);
 		SetBelongCallback(belongMember);
-		Debug.Log("belongMember " + name);
 	}
 
 	/// <summary>
@@ -105,6 +105,10 @@ public class Member
 	/// <param name="belong"></param>
 	public void SetBelong(Object belong)
 	{
+		if(this.belong == belong)
+		{
+			return;
+		}
 		this.belong = belong;
 
 		if (memberList != null && memberList.Count > 0)

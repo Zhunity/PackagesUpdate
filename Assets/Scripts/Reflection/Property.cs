@@ -34,11 +34,17 @@ public class Property : Member
 
 	protected override void SetInfo(Type belongType, string name)
 	{
+		Debug.Log(belongType + "  " + name);
 		propertyInfo = belongType.GetProperty(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
 	}
 
 	protected override void SetType()
 	{
+		if(propertyInfo == null)
+		{
+			Debug.LogError("can not find " + name);
+			return;
+		}
 		type = propertyInfo.PropertyType;
 	}
 }
