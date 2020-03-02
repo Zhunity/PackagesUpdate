@@ -14,16 +14,9 @@ public class IPackageVersion : Property
 
 	public IPackageVersion(Member belongMember, string name) : base(belongMember, name)
 	{
-		ShowMembers();
 	}
 
 	protected override void OnSetBelong()
 	{
-		//if(show)
-		{
-			ShowMembersValue();
-			show = false;
-		}
-		
 	}
 }

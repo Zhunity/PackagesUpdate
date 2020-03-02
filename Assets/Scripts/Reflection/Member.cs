@@ -9,8 +9,7 @@ using Object = System.Object;
 /// <summary>
 /// 一个对象里面的成员
 /// 如果一种类型既有在Property成员，也有Field类型，建议使用Member
-/// TODO 适配上面这种情况
-/// NOTODO 逐层递增，用到的时候自己解析？ 用起来看起来很方便，但是感觉可能调试不好搞，还是不要这么搞了
+/// 继承Class是因为，一种类型，既可能是单独定义出来的，也可能是别的类型中的一个成员，适配这种情况
 /// </summary>
 public class Member : Class
 {
@@ -35,7 +34,6 @@ public class Member : Class
 	// 这个是递归引用时用的
 	public Member(Class belongMember, string name) : this(belongMember.type, name)
 	{
-		Debug.Log(belongMember + " " + name);
 		SetMemberList(belongMember);
 	}
 
@@ -80,13 +78,20 @@ public class Member : Class
 	}
 
 	/// <summary>
-	/// Member这么取是不对的。。。
-	/// TODO memberInfo怎么取到
+	/// 设置成员类型
 	/// </summary>
 	protected virtual void SetType()
 	{
-		Debug.LogError("can not find type in Member");
-		type = memberInfo.ReflectedType;
+		if (memberInfo.MemberType == MemberTypes.Property)
+		{
+			PropertyInfo info = memberInfo as PropertyInfo;
+			type = info.PropertyType;
+		}
+		else if (memberInfo.MemberType == MemberTypes.Field)
+		{
+			FieldInfo info = memberInfo as FieldInfo;
+			type = info.FieldType;
+		}
 	}
 	#endregion
 
