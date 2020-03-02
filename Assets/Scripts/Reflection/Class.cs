@@ -46,6 +46,19 @@ public class Class
 		}
 	}
 
+	/// <summary>
+	/// 获取对象的模板参数
+	/// </summary>
+	/// <returns></returns>
+	public Type[] GetGenericTypeArguments()
+	{
+		if(type.IsGenericType)
+		{
+			return type.GenericTypeArguments;
+		}
+		return null;
+	}
+
 	protected void SetMemberList(Class belongMember)
 	{
 		belongMember.memberList.Add(this as Member);
