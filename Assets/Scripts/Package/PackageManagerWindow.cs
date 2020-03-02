@@ -10,9 +10,11 @@ public class PackageWindow : Member
 {
 	const string packageDetailsName = "packageDetails";
 	PackageDetails packageDetails;
+	PackageList packageList;
 
 	public PackageWindow(Type belongType) : base(belongType)
 	{
 		packageDetails = new PackageDetails(this, packageDetailsName);
+		packageList = new PackageList(this, "packageList");
 	}
 }

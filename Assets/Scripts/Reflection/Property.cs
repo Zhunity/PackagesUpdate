@@ -27,14 +27,8 @@ public class Property : Member
 		return propertyInfo.GetValue(belong);
 	}
 
-	public void ShowValue()
-	{
-		Debug.Log(name + " : " + GetValue());
-	}
-
 	protected override void SetInfo(Type belongType, string name)
 	{
-		Debug.Log(belongType + "  " + name);
 		propertyInfo = belongType.GetProperty(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
 	}
 

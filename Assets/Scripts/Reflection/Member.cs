@@ -140,12 +140,12 @@ public class Member : Class
 		if (memberInfo.MemberType == MemberTypes.Property)
 		{
 			PropertyInfo info = memberInfo as PropertyInfo;
-			return info.GetValue(instance);
+			return info.GetValue(belong);
 		}
 		else if (memberInfo.MemberType == MemberTypes.Field)
 		{
 			FieldInfo info = memberInfo as FieldInfo;
-			return info.GetValue(instance);
+			return info.GetValue(belong);
 		}
 		return null;
 	}
