@@ -10,7 +10,7 @@ public class PackageList : Member
 {
 	Field m_PackageItemsLookup;
 	Type packageItemType;
-	Dictionary<string, RPackageItem> r_PackageItemsLookup = new Dictionary<string, RPackageItem>();
+	Dictionary<string, RPackageItem> r_PackageItemsLookup = new Dictionary<string, RPackageItem>(); // 122个
 
 	public PackageList(Member belongMember, string name) : base(belongMember, name)
 	{

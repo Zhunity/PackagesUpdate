@@ -12,6 +12,14 @@ public class Class
 	public Object instance;     // 这个对象的实例
 	protected List<Member> memberList = new List<Member>();
 
+	public Object Value
+	{
+		get
+		{
+			return GetValue();
+		}
+	}
+
 	protected Class()
 	{
 		memberList.Clear();
@@ -58,6 +66,13 @@ public class Class
 		}
 		return null;
 	}
+
+	public object ConvertObject(Type type)
+	{
+		return Utils.ConvertObject(Value, type);
+	}
+
+
 
 	protected void SetMemberList(Class belongMember)
 	{

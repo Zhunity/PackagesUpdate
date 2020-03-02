@@ -17,14 +17,6 @@ public class Member : Class
 	public Type belongType;
 	public Object belong;
 
-	public Object Value
-	{
-		get
-		{
-			return GetValue();
-		}
-	}
-
 	#region 初始化类型数据
 	// 这个是定义类型用的
 	public Member(Type type) :base(type)

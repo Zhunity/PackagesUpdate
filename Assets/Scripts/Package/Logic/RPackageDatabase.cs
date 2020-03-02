@@ -6,11 +6,22 @@ using UnityEngine;
 public class RPackageDatabase : Class
 {
 	Property s_instance;
+	PackageDatabaseInternal instanceInternal;
+
+
 
 	public RPackageDatabase(Type type) : base(type)
 	{
-		//ShowMembers();
+		ShowMembers();
 		s_instance = new Property(this, "instance");
-		Debug.Log(s_instance.GetValue());
+		SetInstance(s_instance.GetValue());
+
+		
+		Debug.Log(s_instance.GetValue().GetType());
+	}
+
+	public class PackageDatabaseInternal : Class
+	{
+
 	}
 }
