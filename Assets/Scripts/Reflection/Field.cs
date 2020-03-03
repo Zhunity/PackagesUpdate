@@ -18,6 +18,11 @@ public class Field : Member
 	{
 	}
 
+	public override void SetValue(object value)
+	{
+		fieldInfo.SetValue(belong, value);
+	}
+
 	public override object GetValue()
 	{
 		if (belong == null)

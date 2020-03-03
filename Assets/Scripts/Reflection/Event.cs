@@ -22,7 +22,7 @@ public sealed class Event : Member
 		eventInfo.AddEventHandler(belong, handler);
 	}
 
-	public void RemoveEventHandler(object target, Delegate handler)
+	public void RemoveEventHandler(Delegate handler)
 	{
 		eventInfo.RemoveEventHandler(belong, handler);
 	}

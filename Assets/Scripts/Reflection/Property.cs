@@ -17,6 +17,11 @@ public class Property : Member
 	{		
 	}
 
+	public override void SetValue(object value)
+	{
+		propertyInfo.SetValue(belong, value);
+	}
+
 	public override object GetValue()
 	{
 		// TODO static可以不用判断

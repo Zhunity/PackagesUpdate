@@ -128,6 +128,31 @@ public class Member : Class
 	#endregion
 
 	/// <summary>
+	/// 修改某个成员的值
+	/// </summary>
+	/// <param name="value"></param>
+	public override void SetValue(object value)
+	{
+		// 兼容Class
+		if (memberInfo == null)
+		{
+			base.SetValue(value);
+		}
+
+		// 兼容Property， Field
+		if (memberInfo.MemberType == MemberTypes.Property)
+		{
+			PropertyInfo info = memberInfo as PropertyInfo;
+			info.SetValue(belong, value);
+		}
+		else if (memberInfo.MemberType == MemberTypes.Field)
+		{
+			FieldInfo info = memberInfo as FieldInfo;
+			info.SetValue(belong, value);
+		}
+	}
+
+	/// <summary>
 	/// 获取该成员变量的值
 	/// </summary>
 	/// <returns></returns>
@@ -139,6 +164,7 @@ public class Member : Class
 			return instance;
 		}
 
+		// 兼容Property， Field
 		if (memberInfo.MemberType == MemberTypes.Property)
 		{
 			PropertyInfo info = memberInfo as PropertyInfo;

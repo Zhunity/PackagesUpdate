@@ -14,6 +14,10 @@ public class Class
 
 	public Object Value
 	{
+		set
+		{
+			SetValue(value);
+		}
 		get
 		{
 			return GetValue();
@@ -37,6 +41,11 @@ public class Class
 		this.type = type;
 		name = type.FullName;
 		memberList.Clear();
+	}
+
+	public virtual void SetValue(object value)
+	{
+		SetInstance(value);
 	}
 
 	public virtual Object GetValue()
