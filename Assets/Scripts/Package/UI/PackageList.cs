@@ -35,7 +35,7 @@ public class PackageList : Member
 
 		foreach(var item in r_PackageItemsLookup)
 		{
-			Debug.Log(item.Key + "  " + item.Value.GetValue());
+			//Debug.Log(item.Key + "  " + item.Value.GetValue());
 		}
 	}
 }

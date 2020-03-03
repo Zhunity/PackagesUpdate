@@ -30,12 +30,16 @@ public class RPackageInfo : Member
 
 	protected override void OnSetInstance()
 	{
-		Field m_DisplayName = new Field(this, "m_DisplayName");
+		Field m_DisplayName = new Field(this, "m_Name");
 		m_DisplayName.SetBelong(this);
 		string displayName = m_DisplayName.GetValue().ToString();
 
+		Field m_Version = new Field(this, "m_Version");
+		m_Version.SetBelong(this);
+		string version = m_Version.GetValue().ToString();
+
 		Field m_Versions = new Field(this, "m_Versions");
 		m_Versions.SetBelong(this);
-		m_Versions.ShowMembersValue(displayName);
+		m_Versions.ShowMembersValue(displayName + "  " + version);
 	}
 }
