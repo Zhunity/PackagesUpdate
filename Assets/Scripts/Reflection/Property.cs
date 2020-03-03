@@ -7,7 +7,7 @@ using Object = System.Object;
 
 public class Property : Member
 {
-	PropertyInfo propertyInfo;
+	public PropertyInfo propertyInfo;
 
 	public Property(Class belongMember, string name) : base(belongMember, name)
 	{
@@ -22,6 +22,14 @@ public class Property : Member
 		propertyInfo.SetValue(belong, value);
 	}
 
+	/// <summary>
+	/// 数组会有问题
+	/// 如RPackageItem.Item
+	/// 类型是UnityEngine.UIElements.VisualElement Item [Int32]
+	/// 修改方法：object value = info.GetValue(instance, new object[] { 0 });
+	/// TODO 看看怎么判断是数组
+	/// </summary>
+	/// <returns></returns>
 	public override object GetValue()
 	{
 		// TODO static可以不用判断
