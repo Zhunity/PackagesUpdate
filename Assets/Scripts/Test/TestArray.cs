@@ -6,6 +6,23 @@ public class TestArray  : MonoBehaviour
 {
 	private void Awake()
 	{
+		ReflectionVisualElement();
+
+
+
+	}
+
+	private void ReflectionVisualElement()
+	{
+		UnityEngine.UIElements.VisualElement a = new UnityEngine.UIElements.VisualElement();
+		Class visualElement = new Class(typeof(UnityEngine.UIElements.VisualElement));
+		Property Array = new Property(visualElement, "Item");
+		visualElement.SetInstance(a);
+		Debug.Log(Array.propertyInfo.GetValue(a));
+	}
+
+	private void ReflectionMyArray()
+	{
 		MyArray array = new MyArray();
 
 		int[] a = new int[1];
@@ -14,7 +31,7 @@ public class TestArray  : MonoBehaviour
 		Property Array = new Property(rArray, "Array");
 		rArray.SetInstance(array);
 		Debug.Log(Array.propertyInfo);
-
+		Debug.Log(new int[10]);
 		rArray.ShowMembersValue();
 	}
 }
