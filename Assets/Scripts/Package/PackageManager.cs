@@ -30,6 +30,8 @@ public class PackageManager : MonoBehaviour
 		Type t = Utils.GetType("PackageDatabase");
 		RPackageDatabase database = new RPackageDatabase(t);
 
+		RPackageInfo info = new RPackageInfo("UnityEditor.PackageManager.PackageInfo");
+
 		EditorApplication.update += EditorUpdate;
 	}
 

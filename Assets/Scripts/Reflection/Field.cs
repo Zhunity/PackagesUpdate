@@ -10,7 +10,7 @@ public class Field : Member
 {
 	FieldInfo fieldInfo;
 
-	public Field(Member belongMember, string name) : base(belongMember, name)
+	public Field(Class belongMember, string name) : base(belongMember, name)
 	{
 	}
 

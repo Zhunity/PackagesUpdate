@@ -18,6 +18,10 @@ public class Member : Class
 	public Object belong;
 
 	#region 初始化类型数据
+	public Member(string type) : base(type)
+	{
+	}
+
 	// 这个是定义类型用的
 	public Member(Type type) :base(type)
 	{

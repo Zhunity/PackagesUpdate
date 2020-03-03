@@ -33,7 +33,7 @@ public class RPackageDatabase : Class
 
 		protected override void OnSetInstance()
 		{
-			//ShowMembersValue();
+			// 在没打开PackageManager界面时为0，打开之后显示155
 			var value = allPackages.Value as ICollection;
 			Debug.Log(value.Count);
 

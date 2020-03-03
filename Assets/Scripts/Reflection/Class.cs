@@ -25,6 +25,13 @@ public class Class
 		memberList.Clear();
 	}
 
+	public Class(string type)
+	{
+		this.type = Utils.GetType(type);
+		name = type;
+		memberList.Clear();
+	}
+
 	public Class(Type type)
 	{
 		this.type = type;
