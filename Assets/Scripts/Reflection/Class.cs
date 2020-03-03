@@ -111,7 +111,7 @@ public class Class
 	/// <summary>
 	/// 显示内部成员的值
 	/// </summary>
-	protected void ShowMembersValue()
+	public void ShowMembersValue(string desc = "")
 	{
 		Object instance = GetValue();
 		if (instance == null)
@@ -120,7 +120,7 @@ public class Class
 		}
 
 		Debug.Log("");
-		Debug.Log("----------------------------" + name + " begin--------------------------------");
+		Debug.Log("----------------------------" + name + "  " + desc + " begin--------------------------------");
 		var list = type.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
 		foreach (var item in list)
 		{
@@ -128,16 +128,16 @@ public class Class
 			{
 				PropertyInfo info = item as PropertyInfo;
 				object value = info.GetValue(instance);
-				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t" + value + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nDeclaringType:\t" + item.DeclaringType);
+				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t\t" + value + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nPropertyType:\t" + info.PropertyType + "\ndesc:\t\t" + desc);
 			}
 			else if (item.MemberType == MemberTypes.Field)
 			{
 				FieldInfo info = item as FieldInfo;
 				object value = info.GetValue(instance);
-				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t" + value + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nDeclaringType:\t" + item.DeclaringType);
+				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t\t" + value + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nFieldType:\t" + info.FieldType + "\ndesc:\t\t" + desc);
 			}
 		}
-		Debug.Log("----------------------------" + name + " end--------------------------------");
+		Debug.Log("----------------------------" + name + "  " + desc + " end--------------------------------");
 		Debug.Log("");
 	}
 }

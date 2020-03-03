@@ -10,15 +10,32 @@ public class RPackageInfo : Member
 	Method GetAll;
 	public RPackageInfo(string type) : base(type)
 	{
+		
 		GetAll = new Method(this, "GetAll");
-		var item = GetAll.Invoke();
-		var array = item as Array;
+		var obj = GetAll.Invoke();
+		var array = obj as Array;
 		// 53？
 		Debug.Log(array.Length);
+		foreach(var item in array)
+		{
+			var package = new RPackageInfo(this.type);
+			package.SetInstance(item);
+			
+		}
 	}
 
-	protected override void OnSetBelong()
+	public RPackageInfo(Type type) : base(type)
 	{
-		
+	}
+
+	protected override void OnSetInstance()
+	{
+		Field m_DisplayName = new Field(this, "m_DisplayName");
+		m_DisplayName.SetBelong(this);
+		string displayName = m_DisplayName.GetValue().ToString();
+
+		Field m_Versions = new Field(this, "m_Versions");
+		m_Versions.SetBelong(this);
+		m_Versions.ShowMembersValue(displayName);
 	}
 }

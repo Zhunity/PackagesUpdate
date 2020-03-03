@@ -133,6 +133,12 @@ public class Member : Class
 	/// <returns></returns>
 	public override Object GetValue()
 	{
+		// 兼容Class
+		if(memberInfo == null)
+		{
+			return instance;
+		}
+
 		if (memberInfo.MemberType == MemberTypes.Property)
 		{
 			PropertyInfo info = memberInfo as PropertyInfo;
