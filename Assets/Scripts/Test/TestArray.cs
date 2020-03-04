@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class TestArray  : MonoBehaviour
 {
 	private void Awake()
 	{
-		ReflectionVisualElement();
+		//ReflectionVisualElement();
 
-
-
+		ReflectionMyArray(); 
+		
+		//ReflectionString();
 	}
 
 	private void ReflectionVisualElement()
@@ -18,7 +20,12 @@ public class TestArray  : MonoBehaviour
 		Class visualElement = new Class(typeof(UnityEngine.UIElements.VisualElement));
 		Property Array = new Property(visualElement, "Item");
 		visualElement.SetInstance(a);
-		Debug.Log(Array.propertyInfo.GetValue(a));
+		Debug.Log(Array.propertyInfo);
+		Debug.Log(Array.propertyInfo.GetValue(a, new object []{ 0 }));
+
+		//Class proerty = new Class(typeof(PropertyInfo));
+		//proerty.SetInstance(Array.propertyInfo);
+		//proerty.ShowMembersValue();
 	}
 
 	private void ReflectionMyArray()
@@ -28,11 +35,17 @@ public class TestArray  : MonoBehaviour
 		int[] a = new int[1];
 
 		Class rArray = new Class(typeof(MyArray));
-		Property Array = new Property(rArray, "Array");
+		Property Array = new Property(rArray, "item");
 		rArray.SetInstance(array);
-		Debug.Log(Array.propertyInfo);
-		Debug.Log(new int[10]);
+		//Debug.Log(Array.propertyInfo);
 		rArray.ShowMembersValue();
+	}
+
+	private void ReflectionString()
+	{
+		PropertyInfo len = typeof(string).GetProperty("Length");
+		string s = "Hello,reflection!";
+		Debug.Log((int)len.GetValue(s));
 	}
 }
 
@@ -40,6 +53,9 @@ public class MyArray
 {
 	public int[] array = new int[] { 1, 2, 3 };
 
+	/// <summary>
+	/// 1、不是数组属性
+	/// </summary>
 	public ArrayProperty[] Array
 	{
 		get
@@ -47,6 +63,34 @@ public class MyArray
 			return new ArrayProperty[2];
 		}
 	}
+
+	public ArrayProperty[] item
+	{
+		get;set;
+	}
+
+	// 这样不能重写属性的get
+	public ArrayProperty get_item(int index)
+	{
+		return Array[index];
+	}
+
+	/// <summary>
+	/// 当属性是索引器的时候，会抛出TargetParameterCountException: Number of parameters specified does not match the expected number.异常
+	/// https://www.cnblogs.com/jeffwongishandsome/archive/2009/05/04/1448079.html
+	/// 
+	/// </summary>
+	/// <param name="i"></param>
+	/// <returns></returns>
+	public int this[int i]
+	{
+		get
+		{
+			return array[i];
+		}
+		set { array[i] = value; }
+	}
+
 }
 
 public class ArrayProperty

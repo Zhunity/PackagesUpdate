@@ -17,6 +17,24 @@ public class Property : Member
 	{		
 	}
 
+	/// <summary>
+	/// 设置PropertyInfo值的静态类，供Mermber、Property用
+	/// TODO 获取索引器值
+	/// </summary>
+	public static object GetPropertyValue(PropertyInfo info, object belong)
+	{
+		// 参数个数大于0，表示是索引器
+		if(info.GetIndexParameters().Length > 0)
+		{
+			return info.ToString() + " Indexer";
+		}
+		else
+		{
+			return info.GetValue(belong);
+		}
+		
+	}
+
 	public override void SetValue(object value)
 	{
 		propertyInfo.SetValue(belong, value);
@@ -32,13 +50,16 @@ public class Property : Member
 	/// <returns></returns>
 	public override object GetValue()
 	{
-		// TODO static可以不用判断
-		//if (belong == null)
-		//{
-		//	Debug.LogError("can not find " + name);
-		//	return null;
-		//}
-		return propertyInfo.GetValue(belong);
+		return GetPropertyValue(propertyInfo, belong);
+	}
+
+	/// <summary>
+	/// 判断是不是索引器
+	/// </summary>
+	/// <returns></returns>
+	public bool IsIndexer()
+	{
+		return propertyInfo.GetIndexParameters().Length > 0;
 	}
 
 	protected override void SetInfo(Type belongType, string name)

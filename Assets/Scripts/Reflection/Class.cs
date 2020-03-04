@@ -136,7 +136,7 @@ public class Class
 			if (item.MemberType == MemberTypes.Property)
 			{
 				PropertyInfo info = item as PropertyInfo;
-				object value = info.GetValue(instance);
+				object value = Property.GetPropertyValue(info, instance);
 				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t\t" + value + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nPropertyType:\t" + info.PropertyType + "\ndesc:\t\t" + desc);
 			}
 			else if (item.MemberType == MemberTypes.Field)

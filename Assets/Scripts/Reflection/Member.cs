@@ -168,7 +168,7 @@ public class Member : Class
 		if (memberInfo.MemberType == MemberTypes.Property)
 		{
 			PropertyInfo info = memberInfo as PropertyInfo;
-			return info.GetValue(belong);
+			return Property.GetPropertyValue(info, belong);
 		}
 		else if (memberInfo.MemberType == MemberTypes.Field)
 		{
