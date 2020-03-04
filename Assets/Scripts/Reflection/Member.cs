@@ -142,6 +142,7 @@ public class Member : Class
 		// 兼容Property， Field
 		if (memberInfo.MemberType == MemberTypes.Property)
 		{
+			// TODO 可能索引器需要注意
 			PropertyInfo info = memberInfo as PropertyInfo;
 			info.SetValue(belong, value);
 		}
