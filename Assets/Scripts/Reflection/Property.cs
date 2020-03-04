@@ -17,16 +17,23 @@ public class Property : Member
 	{		
 	}
 
+	
+
 	/// <summary>
 	/// 设置PropertyInfo值的静态类，供Mermber、Property用
-	/// TODO 获取索引器值
 	/// </summary>
 	public static object GetPropertyValue(PropertyInfo info, object belong)
 	{
 		// 参数个数大于0，表示是索引器
+		// 返回索引器的函数，供外面调用
+		// TODO 可以不可返回一个外面直接调用的函数？
 		if(info.GetIndexParameters().Length > 0)
 		{
-			return info.ToString() + " Indexer";
+			UniversalFunc indexer = (object[] param) =>
+			{
+				return info.GetValue(belong, param);
+			};
+			return indexer;
 		}
 		else
 		{

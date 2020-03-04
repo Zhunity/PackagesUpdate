@@ -35,10 +35,11 @@ public class TestArray  : MonoBehaviour
 		int[] a = new int[1];
 
 		Class rArray = new Class(typeof(MyArray));
-		Property Array = new Property(rArray, "item");
+		Property Item = new Property(rArray, "Item");
 		rArray.SetInstance(array);
-		//Debug.Log(Array.propertyInfo);
-		rArray.ShowMembersValue();
+		var method = Item.GetValue() as UniversalFunc;
+		Debug.Log(method(2)  + " ----------- " + Item.GetValue());
+		//rArray.ShowMembersValue();
 	}
 
 	private void ReflectionString()

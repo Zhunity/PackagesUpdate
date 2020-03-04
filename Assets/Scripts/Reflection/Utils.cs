@@ -5,6 +5,20 @@ using System.Reflection;
 using UnityEngine;
 using System.ComponentModel;
 
+/// <summary>
+/// 通用的有返回值类型的委托
+/// </summary>
+/// <param name="obj"></param>
+/// <returns></returns>
+public delegate object UniversalFunc(params object[] obj);
+
+/// <summary>
+/// 通用的无返回值类型的委托
+/// 不过感觉反射一般用上面那个就好了
+/// </summary>
+/// <param name="obj"></param>
+public delegate void UniversalAction(params object[] obj);
+
 public static class Utils 
 {
 	/// <summary>
