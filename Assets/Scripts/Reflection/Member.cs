@@ -173,7 +173,7 @@ public class Member : Class
 		else if (memberInfo.MemberType == MemberTypes.Field)
 		{
 			FieldInfo info = memberInfo as FieldInfo;
-			return info.GetValue(belong);
+			return Field.GetFieldValue(info, belong);
 		}
 		return null;
 	}

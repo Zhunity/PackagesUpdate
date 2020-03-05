@@ -142,7 +142,7 @@ public class Class
 			else if (item.MemberType == MemberTypes.Field)
 			{
 				FieldInfo info = item as FieldInfo;
-				object value = info.GetValue(instance);
+				object value = Field.GetFieldValue(info, instance); 
 				Debug.Log("Name:\t\t" + item.Name + "\nvalue:\t\t" + value + "\nReflectedType:\t" + item.ReflectedType + "\nMemberType:\t" + item.MemberType + "\nFieldType:\t" + info.FieldType + "\ndesc:\t\t" + desc);
 			}
 		}

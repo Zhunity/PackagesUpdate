@@ -18,6 +18,18 @@ public class Field : Member
 	{
 	}
 
+	public static object GetFieldValue(FieldInfo info, object belong)
+	{
+		// 判断静态类型
+		if (belong == null && !info.IsStatic)
+		{
+			Debug.LogError(info + " is null");
+			return null;
+		}
+
+		return info.GetValue(belong);
+	}
+
 	public override void SetValue(object value)
 	{
 		fieldInfo.SetValue(belong, value);
@@ -25,12 +37,7 @@ public class Field : Member
 
 	public override object GetValue()
 	{
-		if (belong == null)
-		{
-			Debug.LogError("can not find " + name);
-			return null;
-		}
-		return fieldInfo.GetValue(belong);
+		return GetFieldValue(fieldInfo, belong);
 	}
 
 	protected override void SetInfo(Type belongType, string name)
