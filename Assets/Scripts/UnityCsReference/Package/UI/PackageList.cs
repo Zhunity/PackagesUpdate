@@ -24,6 +24,7 @@ public class PackageList : Member
 	{
 		r_PackageItemsLookup.Clear();
 		IDictionary dict = m_PackageItemsLookup.Value as IDictionary;
+		Debug.Log(dict.Count);
 		var iter = dict.GetEnumerator();
 		while(iter.MoveNext())
 		{

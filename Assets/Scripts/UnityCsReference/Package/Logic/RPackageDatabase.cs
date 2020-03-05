@@ -10,7 +10,7 @@ public class RPackageDatabase : Class
 
 
 
-	public RPackageDatabase(Type type) : base(type)
+	public RPackageDatabase(string type) : base(type)
 	{
 		s_instance = new Property(this, "instance");
 
@@ -35,7 +35,7 @@ public class RPackageDatabase : Class
 		{
 			// 在没打开PackageManager界面时为0，打开之后显示155
 			var value = allPackages.Value as ICollection;
-			Debug.Log(value.Count);
+			//Debug.Log(value.Count);
 
 		}
 	}

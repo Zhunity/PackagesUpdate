@@ -28,8 +28,7 @@ public class PackageManager : MonoBehaviour
 
 		Manifest.LoadManifest();
 
-		Type t = Utils.GetType("PackageDatabase");
-		RPackageDatabase database = new RPackageDatabase(t);
+		RPackageDatabase database = new RPackageDatabase("PackageDatabase");
 
 		RPackageInfo info = new RPackageInfo("UnityEditor.PackageManager.PackageInfo");
 

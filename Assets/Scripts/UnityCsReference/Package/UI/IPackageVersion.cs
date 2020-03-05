@@ -30,7 +30,6 @@ public class IPackageVersion : Property
 		if(dep != null)
 		{
 			var array = dep as Array;
-			Debug.Log(array.Length);
 			foreach(var item in array)
 			{
 				DependencyInfo info = new DependencyInfo(item.GetType());

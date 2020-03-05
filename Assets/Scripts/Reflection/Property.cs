@@ -27,7 +27,6 @@ public class Property : Member
 		// 判断静态类型
 		if(belong == null && !info.GetMethod.IsStatic)
 		{
-			Debug.LogError(info + " is null");
 			return null;
 		}
 
