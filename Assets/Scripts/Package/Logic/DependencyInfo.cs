@@ -5,17 +5,12 @@ using UnityEngine;
 
 public class DependencyInfo : Class
 {
-	Property version;
-	Property nameP;
+	public Property version;
+	public Property nameP;
 
 	public DependencyInfo(Type type) : base(type)
 	{
 		version = new Property(this, "version");
 		this.nameP = new Property(this, "name");
-	}
-
-	public void ShowValue()
-	{
-		Debug.Log(nameP.GetValue() + "  " + version.GetValue());
 	}
 }

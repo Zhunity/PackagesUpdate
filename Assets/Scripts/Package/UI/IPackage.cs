@@ -27,13 +27,13 @@ public class IPackage : Property
 
 	protected override void OnSetBelong()
 	{
-		Debug.Log("");
-		Debug.Log("----------------------------" + displayName.GetValue() + " begin--------------------------------");
-		Debug.Log("installedVersion:\t" + installedVersion.versionId.GetValue() + "\n" + displayName.GetValue());
-		Debug.Log("latestVersion:\t" + latestVersion.versionId.GetValue() + "\n" + displayName.GetValue());
-		Debug.Log("recommendedVersion:\t" + recommendedVersion.versionId.GetValue() + "\n" + displayName.GetValue());
-		Debug.Log("primaryVersion:\t" + primaryVersion.versionId.GetValue() + "\n" + displayName.GetValue());
-		Debug.Log("----------------------------" + displayName.GetValue() + " end--------------------------------");
-		Debug.Log("");
+		//Debug.Log("");
+		//Debug.Log("----------------------------" + displayName.GetValue() + " begin--------------------------------");
+		//Debug.Log("installedVersion:\t" + installedVersion.versionId.GetValue() + "\n" + displayName.GetValue());
+		//Debug.Log("latestVersion:\t" + latestVersion.versionId.GetValue() + "\n" + displayName.GetValue());
+		//Debug.Log("recommendedVersion:\t" + recommendedVersion.versionId.GetValue() + "\n" + displayName.GetValue());
+		//Debug.Log("primaryVersion:\t" + primaryVersion.versionId.GetValue() + "\n" + displayName.GetValue());
+		//Debug.Log("----------------------------" + displayName.GetValue() + " end--------------------------------");
+		//Debug.Log("");
 	}
 }

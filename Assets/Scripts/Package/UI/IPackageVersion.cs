@@ -19,18 +19,24 @@ public class IPackageVersion : Property
 	{
 		displayName = new Property(this, "displayName");
 		versionId = new Property(this, "versionId");
-		//dependencies = new Property(this, "dependencies");
-		//resolvedDependencies = new Property(this, "resolvedDependencies");
-		
+		dependencies = new Property(this, "dependencies");
+		resolvedDependencies = new Property(this, "resolvedDependencies");
+
 	}
 
 	protected override void OnSetBelong()
 	{
-
-		Debug.Log(belong);
-		//foreach(var item in dependencies.GetValue() as object[])
-		//{
-		//	Debug.Log(item);
-		//}
+		var dep = dependencies.GetValue();
+		if(dep != null)
+		{
+			var array = dep as Array;
+			Debug.Log(array.Length);
+			foreach(var item in array)
+			{
+				DependencyInfo info = new DependencyInfo(item.GetType());
+				info.SetInstance(item);
+				Debug.Log(displayName.GetValue() + "  " + info.nameP.GetValue() + "  " + info.version.GetValue());
+			}
+		}
 	}
 }
