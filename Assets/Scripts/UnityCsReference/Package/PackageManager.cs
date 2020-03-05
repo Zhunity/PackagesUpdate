@@ -26,14 +26,13 @@ public class PackageManager : MonoBehaviour
 		windowType = Utils.GetType(packageManagerWidowName);
 		packageWindow = new PackageWindow(windowType);
 
+		Manifest.LoadManifest();
 
 		Type t = Utils.GetType("PackageDatabase");
 		RPackageDatabase database = new RPackageDatabase(t);
 
 		RPackageInfo info = new RPackageInfo("UnityEditor.PackageManager.PackageInfo");
 
-		Debug.Log(Application.dataPath + "/../Packages/manifest.json");
-		Manifest.LoadManifest(Application.dataPath + "/../Packages/manifest.json");
 
 		EditorApplication.update += EditorUpdate;
 	}

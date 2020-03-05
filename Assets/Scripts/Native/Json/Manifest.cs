@@ -17,18 +17,33 @@ public static class Manifest
 			return null;
 		}
 	}
+	private static void SaveTextInEditor(string assetPath, string text)
+	{
+		try
+		{
+			File.WriteAllText(assetPath, text);
+		}
+		catch (Exception)
+		{
+		}
+	}
 
-	public static void LoadManifest(string path)
+	static Dictionary<string, object> manifest;
+	static Dictionary<string, object> package;
+	static string path = Application.dataPath + "/../Packages/manifest.json";
+
+	public static void LoadManifest()
 	{
 		var text = LoadTextInEditor(path);
 		if (string.IsNullOrEmpty(text)) return;
-		var config = MiniJSON.Json.Deserialize(text) as Dictionary<string, object>;
-		foreach (var item in config)
-		{
-			foreach(var info in item.Value as Dictionary<string, object>)
-			{
-					Debug.Log(info.Key + "  " + info.Value);
-			}
-		}
+		manifest = MiniJSON.Json.Deserialize(text) as Dictionary<string, object>;
+		object list;
+		manifest.TryGetValue("dependencies", out list);
+		package = list as Dictionary<string, object>;
+	}
+
+	public static void SetVersion(string name, string version)
+	{
+		package[name] = version;
 	}
 }
