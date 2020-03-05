@@ -32,12 +32,6 @@ public class PackageList : Member
 			item.SetInstance(iter.Value);
 			r_PackageItemsLookup.Add(iter.Key.ToString(), item);
 		}
-
-
-		foreach (var item in r_PackageItemsLookup)
-		{
-			//Debug.Log(item.Key);
-			//item.Value.ShowMembersValue(item.Key);
-		}
+		Debug.Log(dict.Count);
 	}
 }

@@ -13,7 +13,7 @@ public class IPackageVersion : Property
 	public Property versionId;
 	public Property dependencies;
 	public Property resolvedDependencies;
-	static bool show = true;
+	public Property isInstalled;
 
 	public IPackageVersion(Class belongMember, string name) : base(belongMember, name)
 	{
@@ -21,21 +21,21 @@ public class IPackageVersion : Property
 		versionId = new Property(this, "versionId");
 		dependencies = new Property(this, "dependencies");
 		resolvedDependencies = new Property(this, "resolvedDependencies");
-
+		isInstalled = new Property(this, "isInstalled");
 	}
 
 	protected override void OnSetBelong()
 	{
-		var dep = dependencies.GetValue();
-		if(dep != null)
-		{
-			var array = dep as Array;
-			foreach(var item in array)
-			{
-				DependencyInfo info = new DependencyInfo(item.GetType());
-				info.SetInstance(item);
-				//Debug.Log(displayName.GetValue() + "  " + info.nameP.GetValue() + "  " + info.version.GetValue());
-			}
-		}
+		//Debug.Log(displayName.GetValue() + "  " + versionId.GetValue() + "  " + isInstalled.GetValue());
+		//var dep = dependencies.GetValue();
+		//if(dep != null)
+		//{
+		//	var array = dep as Array;
+		//	foreach (var item in array)
+		//	{
+		//		DependencyInfo info = new DependencyInfo(item.GetType());
+		//		info.SetInstance(item);
+		//	}
+		//}
 	}
 }

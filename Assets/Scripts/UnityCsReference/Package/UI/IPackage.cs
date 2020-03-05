@@ -5,6 +5,7 @@ using UnityEngine;
 public class IPackage : Property
 {
 	Property displayName;
+	Property packageName;
 	IPackageVersion installedVersion;
 	IPackageVersion latestVersion;
 
@@ -19,6 +20,7 @@ public class IPackage : Property
 	public IPackage(Class belongMember, string name) : base(belongMember, name)
 	{
 		displayName = new Property(this, "displayName");
+		packageName = new Property(this, "name");
 		installedVersion = new IPackageVersion(this, "installedVersion");
 		latestVersion = new IPackageVersion(this, "latestVersion");
 		recommendedVersion = new IPackageVersion(this, "recommendedVersion");
@@ -27,13 +29,43 @@ public class IPackage : Property
 
 	protected override void OnSetBelong()
 	{
-		//Debug.Log("");
-		//Debug.Log("----------------------------" + displayName.GetValue() + " begin--------------------------------");
-		//Debug.Log("installedVersion:\t" + installedVersion.versionId.GetValue() + "\n" + displayName.GetValue());
-		//Debug.Log("latestVersion:\t" + latestVersion.versionId.GetValue() + "\n" + displayName.GetValue());
-		//Debug.Log("recommendedVersion:\t" + recommendedVersion.versionId.GetValue() + "\n" + displayName.GetValue());
-		//Debug.Log("primaryVersion:\t" + primaryVersion.versionId.GetValue() + "\n" + displayName.GetValue());
-		//Debug.Log("----------------------------" + displayName.GetValue() + " end--------------------------------");
-		//Debug.Log("");
+		CheckVersion();
+	}
+
+	private void CheckVersion()
+	{
+		if(!IsInstalled())
+		{
+			return;
+		}
+
+		if(!NeedUpdate())
+		{
+			return;
+		}
+		Debug.Log(packageName.GetValue() + "  " + primaryVersion.versionId.GetValue() + "  " + recommendedVersion.versionId.GetValue());
+		Manifest.SetVersion(packageName.GetValue().ToString(), recommendedVersion.versionId.GetValue().ToString());
+	}
+
+	private bool IsInstalled()
+	{
+		return (bool)(primaryVersion.isInstalled.GetValue());
+	}
+
+	private bool NeedUpdate()
+	{
+		return primaryVersion.versionId.GetValue().ToString() != recommendedVersion.versionId.GetValue().ToString();
+	}
+
+	private void ShowVersion()
+	{
+		Debug.Log("");
+		Debug.Log("----------------------------" + displayName.GetValue() + " begin--------------------------------");
+		Debug.Log("installedVersion:\t" + installedVersion.versionId.GetValue() + "\n" + displayName.GetValue() + "\n" + installedVersion.isInstalled.GetValue());
+		Debug.Log("latestVersion:\t" + latestVersion.versionId.GetValue() + "\n" + displayName.GetValue() + "\n" + latestVersion.isInstalled.GetValue());
+		Debug.Log("recommendedVersion:\t" + recommendedVersion.versionId.GetValue() + "\n" + displayName.GetValue() + "\n" + recommendedVersion.isInstalled.GetValue());
+		Debug.Log("primaryVersion:\t" + primaryVersion.versionId.GetValue() + "\n" + displayName.GetValue() + "\n" + primaryVersion.isInstalled.GetValue());
+		Debug.Log("----------------------------" + displayName.GetValue() + " end--------------------------------");
+		Debug.Log("");
 	}
 }

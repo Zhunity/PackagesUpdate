@@ -22,7 +22,5 @@ public class RPackageItem : Class
 
 	protected override void OnSetInstance()
 	{
-		//targetVersion.ShowMembersValue(targetVersion.displayName.GetValue().ToString());
-		//selectedVersion.ShowMembersValue(selectedVersion.displayName.GetValue().ToString());
 	}
 }
