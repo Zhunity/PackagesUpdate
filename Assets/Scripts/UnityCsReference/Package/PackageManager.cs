@@ -32,6 +32,9 @@ public class PackageManager : MonoBehaviour
 
 		RPackageInfo info = new RPackageInfo("UnityEditor.PackageManager.PackageInfo");
 
+		Debug.Log(Application.dataPath + "/../Packages/manifest.json");
+		Manifest.LoadManifest(Application.dataPath + "/../Packages/manifest.json");
+
 		EditorApplication.update += EditorUpdate;
 	}
 

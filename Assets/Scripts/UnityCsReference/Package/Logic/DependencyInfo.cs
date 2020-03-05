@@ -6,11 +6,11 @@ using UnityEngine;
 public class DependencyInfo : Class
 {
 	public Property version;
-	public Property nameP;
+	public Property packageName;
 
 	public DependencyInfo(Type type) : base(type)
 	{
 		version = new Property(this, "version");
-		this.nameP = new Property(this, "name");
+		this.packageName = new Property(this, "name");
 	}
 }

@@ -35,7 +35,7 @@ public class IPackageVersion : Property
 			{
 				DependencyInfo info = new DependencyInfo(item.GetType());
 				info.SetInstance(item);
-				Debug.Log(displayName.GetValue() + "  " + info.nameP.GetValue() + "  " + info.version.GetValue());
+				//Debug.Log(displayName.GetValue() + "  " + info.nameP.GetValue() + "  " + info.version.GetValue());
 			}
 		}
 	}
