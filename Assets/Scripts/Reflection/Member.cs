@@ -111,7 +111,6 @@ public class Member : Class
 				member.SetBelong(this);
 			}
 		}
-
 		OnSetBelong();
 	}
 

@@ -24,6 +24,10 @@ public class Property : Member
 	/// </summary>
 	public static object GetPropertyValue(PropertyInfo info, object belong)
 	{
+		if(belong == null)
+		{
+			Debug.LogError(info);
+		}
 		// 参数个数大于0，表示是索引器
 		// 返回索引器的函数，供外面调用
 		// TODO 可以不可返回一个外面直接调用的函数？
