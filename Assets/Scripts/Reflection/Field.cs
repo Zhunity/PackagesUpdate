@@ -23,7 +23,6 @@ public class Field : Member
 		// 判断静态类型
 		if (belong == null && !info.IsStatic)
 		{
-			Debug.LogError(info + " is null");
 			return null;
 		}
 

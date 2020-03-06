@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -32,6 +33,23 @@ public class PackageList : Member
 			item.SetInstance(iter.Value);
 			r_PackageItemsLookup.Add(iter.Key.ToString(), item);
 		}
-		Debug.Log(dict.Count);
+
+		bool needUpdate = false;
+		foreach(var item in r_PackageItemsLookup)
+		{
+			if(item.Value.NeedUpdate())
+			{
+				needUpdate = true;
+			}
+		}
+
+		
+		if (needUpdate)
+		{
+			if(EditorUtility.DisplayDialog("一键升级", "检测到有package可以升级，是否一键升级？", "确认", "取消"))
+			{
+				Manifest.SaveManifest();
+			}
+		}
 	}
 }

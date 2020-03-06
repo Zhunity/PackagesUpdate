@@ -29,22 +29,22 @@ public class IPackage : Property
 
 	protected override void OnSetBelong()
 	{
-		CheckVersion();
 	}
 
-	private void CheckVersion()
+	public bool CheckVersion()
 	{
 		if(!IsInstalled())
 		{
-			return;
+			return false;
 		}
 
 		if(!NeedUpdate())
 		{
-			return;
+			return false;
 		}
 		Debug.Log(packageName.GetValue() + "  " + primaryVersion.versionId.GetValue() + "  " + recommendedVersion.versionId.GetValue());
 		Manifest.SetVersion(packageName.GetValue().ToString(), recommendedVersion.versionId.GetValue().ToString());
+		return true;
 	}
 
 	private bool IsInstalled()

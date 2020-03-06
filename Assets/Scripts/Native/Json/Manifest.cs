@@ -42,6 +42,13 @@ public static class Manifest
 		package = list as Dictionary<string, object>;
 	}
 
+	public static void SaveManifest()
+	{
+		var text = MiniJSON.Json.Serialize(manifest);
+		if (string.IsNullOrEmpty(text)) return;
+		SaveTextInEditor(path, text);
+	}
+
 	public static void SetVersion(string name, string version)
 	{
 		package[name] = version;

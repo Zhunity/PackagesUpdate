@@ -26,16 +26,15 @@ public class IPackageVersion : Property
 
 	protected override void OnSetBelong()
 	{
-		//Debug.Log(displayName.GetValue() + "  " + versionId.GetValue() + "  " + isInstalled.GetValue());
-		//var dep = dependencies.GetValue();
-		//if(dep != null)
-		//{
-		//	var array = dep as Array;
-		//	foreach (var item in array)
-		//	{
-		//		DependencyInfo info = new DependencyInfo(item.GetType());
-		//		info.SetInstance(item);
-		//	}
-		//}
+		var dep = dependencies.GetValue();
+		if (dep != null)
+		{
+			var array = dep as Array;
+			foreach (var item in array)
+			{
+				DependencyInfo info = new DependencyInfo(item.GetType());
+				info.SetInstance(item);
+			}
+		}
 	}
 }

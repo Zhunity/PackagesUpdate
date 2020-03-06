@@ -108,7 +108,7 @@ public class Class
 	/// MemberType：Property, Field等类型
 	/// DeclaringType：定义这个变量的类型位置
 	/// </summary>
-	protected void ShowMembers()
+	public void ShowMembers()
 	{
 		var list = type.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
 		foreach (var item in list)
