@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -35,10 +36,11 @@ public class TestArray  : MonoBehaviour
 		int[] a = new int[1];
 
 		Class rArray = new Class(typeof(MyArray));
+		rArray.ShowMembers();
 		Property Item = new Property(rArray, "Item");
 		rArray.SetInstance(array);
 		var method = Item.GetValue() as UniversalFunc;
-		Debug.Log(method(2)  + " ----------- " + Item.GetValue());
+		//Debug.Log(method(2)  + " ----------- " + Item.GetValue());
 		//rArray.ShowMembersValue();
 	}
 
@@ -90,6 +92,25 @@ public class MyArray
 			return array[i];
 		}
 		set { array[i] = value; }
+	}
+
+	// Field
+	public Action hello;
+
+	// Property
+	public Action search
+	{
+		get;set;
+	}
+
+	// Event
+	public event Action selectionChanged;
+
+	// Event
+	public event Action close
+	{
+		add{ }
+		remove { }
 	}
 
 }
