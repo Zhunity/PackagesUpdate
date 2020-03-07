@@ -13,28 +13,45 @@ using Object = System.Object;
 /// </summary>
 public class Member : Class
 {
-	public MemberInfo memberInfo;
-	public Type belongType;
-	public Object belong;
+	public MemberInfo memberInfo;	// 反射出来的信息
+	public Type belongType;			// 在哪个类里面反射出来的成员
+	public Object belong;			// 所属的实例对象
 
 	#region 初始化类型数据
+	/// <summary>
+	/// 由于可能需要单独成为一个类型，而不是作为成员，所以需要实现类型的定义的构造函数
+	/// </summary>
+	/// <param name="type"></param>
 	public Member(string type) : base(type)
 	{
 	}
 
-	// 这个是定义类型用的
+	/// <summary>
+	/// 这个是定义类型用的，同上
+	/// </summary>
+	/// <param name="type"></param>
 	public Member(Type type) :base(type)
 	{
 	}
 
-	// 这个是递归引用时用的
+	/// <summary>
+	/// 这个是递归引用时用的
+	/// 即在一个Class（or Member）中，需要添加成员变量，调用这个接口，完成成员的绑定
+	/// </summary>
+	/// <param name="belongMember"></param>
+	/// <param name="name"></param>
 	public Member(Class belongMember, string name) : this(belongMember.type, name)
 	{
 		belongMember.AddMember(this as Member);
 	}
 
-	// 这个是根节点用的
-	// 只用一个类型内的某个参数，不需要定义一个类型
+	/// <summary>
+	/// 这个是根节点用的
+	///  只用一个类型内的某个参数，不需要定义一个类型
+	///  即不想定义一个成员的所属实例，只想单独拿目标实例中的一个成员时用的
+	/// </summary>
+	/// <param name="belongType"></param>
+	/// <param name="name"></param>
 	public Member(Type belongType, string name)
 	{
 		SetInfo(belongType, name);
