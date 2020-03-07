@@ -30,7 +30,7 @@ public class Member : Class
 	// 这个是递归引用时用的
 	public Member(Class belongMember, string name) : this(belongMember.type, name)
 	{
-		SetMemberList(belongMember);
+		belongMember.AddMember(this as Member);
 	}
 
 	// 这个是根节点用的

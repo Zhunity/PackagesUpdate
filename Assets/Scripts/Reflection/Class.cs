@@ -29,6 +29,11 @@ public class Class
 		memberList.Clear();
 	}
 
+	/// <summary>
+	/// 传进一个类型名字，创建该类型的反射类
+	/// 毕竟主工程中可能拿不到该类型，只能通过传名字来完成操作
+	/// </summary>
+	/// <param name="type"></param>
 	public Class(string type)
 	{
 		this.type = Utils.GetType(type);
@@ -36,6 +41,10 @@ public class Class
 		memberList.Clear();
 	}
 
+	/// <summary>
+	/// 直接传进类型，省去查找类型的过程
+	/// </summary>
+	/// <param name="type"></param>
 	public Class(Type type)
 	{
 		this.type = type;
@@ -53,14 +62,21 @@ public class Class
 		return instance;
 	}
 
+	/// <summary>
+	/// 设置实例
+	/// </summary>
+	/// <param name="instance"></param>
 	public void SetInstance(Object instance)
 	{
+		// 如果是同一个，无需继续操作
 		if(this.instance == instance)
 		{
 			return;
 		}
+
 		this.instance = instance;
 
+		// 给反射成员设置所属对象
 		if (memberList != null && memberList.Count > 0)
 		{
 			foreach (var member in memberList)
@@ -72,9 +88,22 @@ public class Class
 		OnSetInstance();
 	}
 
+	/// <summary>
+	/// 子类重写的函数，不建议直接重写SetInstance
+	/// 反射类设置好实例之后
+	/// </summary>
 	protected virtual void OnSetInstance()
 	{
 
+	}
+
+	/// <summary>
+	/// 添加反射类成员
+	/// </summary>
+	/// <param name="belongMember"></param>
+	public void AddMember(Member member)
+	{
+		memberList.Add(member);
 	}
 
 	/// <summary>
@@ -93,13 +122,6 @@ public class Class
 	public object ConvertObject(Type type)
 	{
 		return Utils.ConvertObject(Value, type);
-	}
-
-
-
-	protected void SetMemberList(Class belongMember)
-	{
-		belongMember.memberList.Add(this as Member);
 	}
 
 	/// <summary>

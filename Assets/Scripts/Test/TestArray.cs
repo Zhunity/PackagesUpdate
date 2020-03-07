@@ -36,12 +36,12 @@ public class TestArray  : MonoBehaviour
 		int[] a = new int[1];
 
 		Class rArray = new Class(typeof(MyArray));
-		rArray.ShowMembers();
+	//	rArray.ShowMembers();
 		Property Item = new Property(rArray, "Item");
 		rArray.SetInstance(array);
 		var method = Item.GetValue() as UniversalFunc;
 		//Debug.Log(method(2)  + " ----------- " + Item.GetValue());
-		//rArray.ShowMembersValue();
+		rArray.ShowMembersValue();
 	}
 
 	private void ReflectionString()
