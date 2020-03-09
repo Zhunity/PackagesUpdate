@@ -13,3 +13,6 @@ https://zhuanlan.zhihu.com/p/111406572
 
 Unity Package 一键更新功能开发之C#反射逻辑篇
 https://zhuanlan.zhihu.com/p/111564237
+
+Unity Package 一键更新功能开发之功能已完成final phase
+https://zhuanlan.zhihu.com/p/111565291
